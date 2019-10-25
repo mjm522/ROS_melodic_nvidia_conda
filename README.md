@@ -10,13 +10,17 @@ A script is given to install steps 1 to 5. So if you are fresh Ubuntu install ju
 
 3) Install nvidia toolkit:[Reference](https://github.com/NVIDIA/nvidia-docker)
 
-`$ sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
- $ sudo systemctl restart docker`
+```
+ $ sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
+ $ sudo systemctl restart docker
+ ```
 
 4) Install nvidia-docker2: Reference](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0))
 
-`$ sudo apt-get install nvidia-docker2
- $ sudo pkill -SIGHUP dockerd`
+ ```
+ $ sudo apt-get install nvidia-docker2
+ $ sudo pkill -SIGHUP dockerd
+ ```
 
 5) Once the docker is installed there might be problem with using the sound card for the gazebo. To fix the possible errors (Refer error 1), add the sound devices to the group.
 
@@ -31,18 +35,23 @@ A script is given to install steps 1 to 5. So if you are fresh Ubuntu install ju
 
 # Possible Errors
 
-1) `AL lib: (WW) alc_initconfig: Failed to initialize backend "pulse"
-   ALSA lib confmisc.c:768:(parse_card) cannot find card '0'`
+1) ```
+   AL lib: (WW) alc_initconfig: Failed to initialize backend "pulse"
+   ALSA lib confmisc.c:768:(parse_card) cannot find card '0'
+   ```
 
 This error occurs when trying to open gazebo. The issue is because of not able to access sound card. It can be fixed by `$sudo usermod -aG audio $USER` in the terminal before running the script. [Reference](https://github.com/jacknlliu/ros-docker-images/issues/7)
 
-2) `libGL error: No matching fbConfigs or visuals found
+2)  ```
+    libGL error: No matching fbConfigs or visuals found
     libGL error: failed to load driver: swrast
-    X Error of failed request:  GLXBadContext`
+    X Error of failed request:  GLXBadContext
+    ```
 
 The error occurs due to issues with not able to use nvidia drivers. The solution is to follow step 4.
 
 
 3) `[Err] [REST.cc:205] Error in REST request libcurl: (51) SSL: no alternative certificate subject name matches target host name 'api.ignitionfuel.org'`
 
-Solution: Update the following file `~/.ignition/fuel/config.yaml` as following; change `url: https://api.ignitionfuel.org` to `url: https://api.ignitionrobotics.org`.
+Solution: Update the following file `~/.ignition/fuel/config.yaml` as following; 
+change `url: https://api.ignitionfuel.org` to `url: https://api.ignitionrobotics.org`.
