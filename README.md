@@ -45,3 +45,6 @@ The error occurs due to issues with not able to use nvidia drivers. The solution
 `$sudo apt-get install nvidia-docker2
  $sudo pkill -SIGHUP dockerd`
 
+3) `[Err] [REST.cc:205] Error in REST request libcurl: (51) SSL: no alternative certificate subject name matches target host name 'api.ignitionfuel.org'`
+
+Solution: Update the following file `~/.ignition/fuel/config.yaml` as following; change `url: https://api.ignitionfuel.org` to `url: https://api.ignitionrobotics.org`.
