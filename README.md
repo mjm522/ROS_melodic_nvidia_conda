@@ -40,10 +40,8 @@ This error occurs when trying to open gazebo. The issue is because of not able t
     libGL error: failed to load driver: swrast
     X Error of failed request:  GLXBadContext`
 
-The error occurs due to issues with not able to use nvidia drivers. The solution is to install [nvidia-toolkit]() and [nvidia-docker2](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0)) by following the next two instructions.
+The error occurs due to issues with not able to use nvidia drivers. The solution is to follow step 4.
 
-`$sudo apt-get install nvidia-docker2
- $sudo pkill -SIGHUP dockerd`
 
 3) `[Err] [REST.cc:205] Error in REST request libcurl: (51) SSL: no alternative certificate subject name matches target host name 'api.ignitionfuel.org'`
 
