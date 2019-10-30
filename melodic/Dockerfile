@@ -1,6 +1,9 @@
 FROM osrf/ros:melodic-desktop-full
-#ARG DEBIAN_FRONTEND=noninteractive
 ENV DEBIAN_FRONTEND noninteractive
+
+ARG DOCKER_UID
+ARG DOCKER_GID
+ARG DOCKER_USER
 
 ARG conda_env=lfm
 ENV PATH /opt/conda/bin:$PATH
@@ -17,7 +20,15 @@ RUN  apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 #some dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends apt-utils nano
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils nano sudo 
+
+RUN groupadd --system --gid ${DOCKER_GID} ${DOCKER_USER} \
+    && useradd --system --create-home --gid ${DOCKER_GID} --uid ${DOCKER_UID} ${DOCKER_USER} \
+    && usermod -aG dialout ${DOCKER_USER} \
+    && usermod -aG sudo ${DOCKER_USER} \
+    && echo '%sudo ALL=NOPASSWD: ALL' > /etc/sudoers.d/sudo-nopasswd \
+    && chmod 0440 /etc/sudoers.d/sudo-nopasswd
+
 
 # installs avahi for local network discovery (required for using the real robot)
 RUN apt-get install -y avahi-daemon avahi-utils
@@ -51,5 +62,5 @@ RUN apt-get install -y openssh-server \
    					   openssh-client  \
     				   openssl
 
-RUN mkdir $HOME/Projects
-
+USER $DOCKER_USER
+CMD /bin/bash

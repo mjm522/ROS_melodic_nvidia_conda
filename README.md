@@ -1,6 +1,6 @@
 # Steps
 
-A script is given to install steps 1 to 5. So if you are fresh Ubuntu install just run `$pre-install.sh`. To manually install follow the steps 1 to 5. If installing with the pre-install script, jump to step 6.
+A script is given (in the scripts folder) to install steps 1 to 5. So if you are fresh Ubuntu install just run `$pre-install.sh`. To manually install follow the steps 1 to 5. If installing with the pre-install script, jump to step 6.
 
 0) Clone this repository and `cd` to the directory.
 

@@ -12,7 +12,7 @@ WORK_DIR="${HOME}/Projects/"
 if [ -z "$DOCKER_IMAGE" ]
 then
       echo "usage: ./bash.sh <docker-image-tag>"
-      echo "example: ./bash.sh dev:indigo-cuda"
+      echo "example: ./bash.sh dev:melodic"
       echo "to list built docker images run: docker images"
       exit 1
 fi
@@ -32,7 +32,7 @@ then
 fi
 
 docker run -it \
-    --user=$(id -u) \
+    --privileged\
     --env="DISPLAY=$DISPLAY" \
     --env="PULSE_SERVER=unix:${XDG_RUNTIME_DIR}/pulse/native" \
     --env="QT_X11_NO_MITSHM=1" \
@@ -44,13 +44,8 @@ docker run -it \
     --volume="${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native" \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     --volume="$XAUTH:$XAUTH" \
-    --volume="${ROOT_DIR}/avahi-configs:/etc/avahi" \
-    --volume="/home/$USER:/home/$USER" \
-    --volume="/etc/group:/etc/group:ro" \
-    --volume="/etc/passwd:/etc/passwd:ro" \
-    --volume="/etc/shadow:/etc/shadow:ro" \
-    --volume="/etc/sudoers.d:/etc/sudoers.d:ro" \
-    --workdir="/home/$USER/Projects" \
+    --volume="/dev:/dev"\
+    --workdir="$WORK_DIR" \
     --runtime=nvidia \
     $DOCKER_IMAGE \
     bash

@@ -9,10 +9,5 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-shopt -s expand_aliases
-source $HOME/.bashrc
-source ${ROOT_DIR}/aliases.sh
-
-
 echo 'Entering container:' $1
-xdocker exec -it $1 bash
+docker exec -it $1 bash
